@@ -31,10 +31,10 @@ clarity.init('kzhxxy2ip7');
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <CacheProvider value={cacheRtl}>
-<ThemeProvider theme={theme}>
-<React.StrictMode>
-    <App />
-  </React.StrictMode>
-  </ThemeProvider>
+    <ThemeProvider theme={theme}>
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    </ThemeProvider>
   </CacheProvider>
 )

@@ -1,19 +1,10 @@
 import { useState, useEffect } from 'react';
 import './App.css'
 import WebApp from '@twa-dev/sdk'
-import Paper from '@mui/material/Paper';
-// import { Box, Grid, Typography, Button, TextField } from '@mui/material';
+import { AppBar, Toolbar, IconButton, Typography, Card, CardContent, Paper } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
-import Typography from '@mui/material/Typography';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-// import { Avatar } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import { Person} from '@mui/icons-material';
-
+import {Person} from '@mui/icons-material';
 
 WebApp.expand();
 
@@ -56,6 +47,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [scoreData, setScoreData] = useState<ScoreData | null>(null);
   const userdata = WebApp.initDataUnsafe;
+  
 
   useEffect(() => {
     if (userdata && userdata.user?.id) {
@@ -110,37 +102,64 @@ function App() {
             <><Grid container spacing={2}>
               <Grid xs={12}><Card>
                 <CardContent>
-                  <Typography variant="h2">💰  {scoreData.score}</Typography> </CardContent>
+                  <Typography variant="h2">
+                    💰<br />
+                    {scoreData.score}
+                    </Typography>
+                    </CardContent>
               </Card>
               </Grid>
               <Grid xs={6}><Card>
                 <CardContent>
-                  <Typography variant="h3">🌳 {scoreData.tree}</Typography> </CardContent>
+                  <Typography variant="h3">
+                  🌳<br />
+                  {scoreData.tree}
+                  </Typography>
+                </CardContent>
               </Card>
               </Grid>
               <Grid xs={6}><Card>
                 <CardContent>
-                  <Typography variant="h3">☀️ {scoreData.light}</Typography> </CardContent>
+                  <Typography variant="h3">
+                    ☀️<br />
+                    {scoreData.light}
+                  </Typography>
+                  </CardContent>
               </Card>
               </Grid>
               <Grid xs={3}><Card>
                 <CardContent>
-                  <Typography variant="h4">🌬️ {scoreData.wind}</Typography> </CardContent>
+                  <Typography variant="h4">
+                    🌬️<br />
+                    {scoreData.wind}
+                    </Typography> </CardContent>
               </Card>
               </Grid>
               <Grid xs={3}><Card>
                 <CardContent>
-                  <Typography variant="h4">🔥 {scoreData.fire}</Typography> </CardContent>
+                  <Typography variant="h4">
+                    🔥<br />
+                  {scoreData.fire}
+                  </Typography>
+                  </CardContent>
               </Card>
               </Grid>
               <Grid xs={3}><Card>
                 <CardContent>
-                  <Typography variant="h4">🌍 {scoreData.earth}</Typography> </CardContent>
+                  <Typography variant="h4">
+                    🌍<br />
+                    {scoreData.earth}
+                  </Typography>
+                </CardContent>
               </Card>
               </Grid>
               <Grid xs={3}><Card>
                 <CardContent>
-                  <Typography variant="h4">💧 {scoreData.water}</Typography> </CardContent>
+                  <Typography variant="h4">
+                    💧<br />
+                    {scoreData.water}
+                  </Typography>
+                </CardContent>
               </Card>
               </Grid>
             </Grid>
