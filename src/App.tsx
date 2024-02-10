@@ -6,6 +6,7 @@ function App() {
   const [count, setCount] = useState(0);
   const userdata = WebApp.initDataUnsafe;
   console.log(userdata);
+  console.log(userdata.user?.id);
   console.log(WebApp);
 
   const MainButton = WebApp.MainButton;
