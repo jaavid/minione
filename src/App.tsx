@@ -1,11 +1,20 @@
 import { useState } from 'react'
 import './App.css'
-
 import WebApp from '@twa-dev/sdk'
 
 function App() {
   const [count, setCount] = useState(0);
   const userdata = WebApp.initDataUnsafe;
+  console.log(userdata);
+  console.log(WebApp);
+
+  const MainButton = WebApp.MainButton;
+
+  MainButton.setText('بازی');
+  MainButton.show();
+  MainButton.onClick(() => alert('submitted'));
+
+
   return (
     <>
       <h1>Elemental Game</h1>
