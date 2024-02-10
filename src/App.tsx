@@ -15,7 +15,7 @@ const SettingsButton = WebApp.SettingsButton;
 MainButton.setText('بازی');
 MainButton.show();
 MainButton.onClick(() => alert('submitted'));
-MainButton.color = '#000000';
+MainButton.color = '#1976d2';
 MainButton.textColor = '#FFFFFF';
 
 
@@ -24,7 +24,7 @@ BackButton.onClick(() => window.history.back());
 
 SettingsButton.isVisible = true;
 
-WebApp.setHeaderColor('#000000');
+WebApp.setHeaderColor('#1976d2');
 WebApp.setBackgroundColor('#000000');
 
 interface ScoreData {
