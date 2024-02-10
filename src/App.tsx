@@ -4,7 +4,8 @@ import './App.css'
 import WebApp from '@twa-dev/sdk'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
+  const userdata = WebApp.initDataUnsafe;
   return (
     <>
       <h1>Elemental Game</h1>
@@ -17,6 +18,9 @@ function App() {
       <div className="card">
         <button onClick={() => WebApp.showAlert(`Hello World! Current count is ${count}`)}>
             Show Alert
+        </button>
+        <button onClick={() => WebApp.showAlert(` ${userdata}`)}>
+          Show User Data
         </button>
       </div>
     </>
