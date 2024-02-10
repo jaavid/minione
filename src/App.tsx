@@ -95,7 +95,7 @@ function App() {
           <Typography variant="h6" sx={{ flexGrow:  1 }}>
             نسخه بتا
           </Typography>
-          <IconButton edge="end" color="inherit" aria-label="close" onClick={() => window.close()}>
+          <IconButton edge="end" color="inherit" aria-label="close" onClick={() => WebApp.close()}>
             <CloseIcon />
           </IconButton>
         </Toolbar>
