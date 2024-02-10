@@ -5,7 +5,9 @@ import './index.css'
 import { clarity } from 'react-microsoft-clarity';
 
 import WebApp from '@twa-dev/sdk'
+import eruda from 'eruda'
 
+eruda.init()
 WebApp.ready();
 clarity.init('kzhxxy2ip7');
 
