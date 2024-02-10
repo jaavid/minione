@@ -10,6 +10,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.3",
+    "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^5.15.9",
+    "@mui/material": "^5.15.9",
     "@twa-dev/sdk": "^7.0.0",
     "@vitejs/plugin-basic-ssl": "^1.1.0",
     "eruda": "^3.0.1",

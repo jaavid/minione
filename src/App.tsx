@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react';
 import './App.css'
 import WebApp from '@twa-dev/sdk'
+import Paper from '@mui/material/Paper';
+// import { Box, Grid, Typography, Button, TextField } from '@mui/material';
+import Grid from '@mui/material/Unstable_Grid2';
 
 WebApp.expand();
 
@@ -69,25 +72,40 @@ function App() {
 
   return (
     <>
-      <h1>برخورد عناصر</h1>
+    <Paper elevation={3} />
+    <h1>برخورد عناصر</h1>
       <div className="card">
         {isLoading ? 
         (
           <div className="progress-bar">  </div> // Simple progress bar
         ) : scoreData ? (
-          <div className="score-data">
-            <p>User ID: {scoreData.userid}</p>
-            <p>امتیاز: {scoreData.score}</p>
-            <p>درخت: {scoreData.tree}</p>
-            <p>نور: {scoreData.light}</p>
-            <p>آب: {scoreData.water}</p>
-            <p>باد: {scoreData.wind}</p>
-            <p>زمان: {scoreData.earth}</p>
-            <p>آتش: {scoreData.fire}</p>
-            {/* Add more fields as needed */}
-          </div>
+          <><div className="score-data">
+              
+              
+              
+              
+              <p>آب: {scoreData.water}</p>
+              <p>باد: {scoreData.wind}</p>
+              <p>زمان: {scoreData.earth}</p>
+              <p>آتش: {scoreData.fire}</p>
+              {/* Add more fields as needed */}
+            </div><Grid container spacing={2}>
+                <Grid xs={8}>
+                <p>User ID: {scoreData.userid}</p>
+                </Grid>
+                <Grid xs={8}>
+                <p>امتیاز: {scoreData.score}</p>  
+                </Grid>
+                <Grid xs={8}>
+                <p>درخت: {scoreData.tree}</p>
+                </Grid>
+                <Grid xs={8}>
+                <p>نور: {scoreData.light}</p>
+                </Grid>
+              </Grid></>
         ) : null}
       </div>
+    <Paper />
     </>
   );
 }
