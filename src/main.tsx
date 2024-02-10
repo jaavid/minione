@@ -21,7 +21,7 @@ const cacheRtl = createCache({
 
 const theme = createTheme({
   typography: {
-    fontFamily: '"VazirMatn", serif',
+    fontFamily: '"VazirMatn FD", serif',
   },
   direction: 'rtl',
 });
