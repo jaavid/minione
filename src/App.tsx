@@ -3,15 +3,21 @@ import './App.css'
 import WebApp from '@twa-dev/sdk'
   const MainButton = WebApp.MainButton;
   const BackButton = WebApp.BackButton;
+  const SettingsButton = WebApp.SettingsButton;
 
   MainButton.setText('بازی');
   MainButton.show();
   MainButton.onClick(() => alert('submitted'));
   MainButton.color = '#000000';
   MainButton.textColor = '#FFFFFF';
+
+
   BackButton.show();
   BackButton.onClick(() => window.history.back());
 
+  SettingsButton.isVisible = true;
+
+  
 interface ScoreData {
   userid: number;
   score: number;
@@ -42,12 +48,14 @@ function App() {
   const fetchScoreData = async (userId: number) => {
     setIsLoading(true); // Set loading to true when fetch starts
     try {
+      MainButton.showProgress(true); // Show progress indicator on MainButton
       const response = await fetch(`https://api.rahomaskan.com/api/score?tgid=${userId}`);
       const data = await response.json();
       setScoreData(data[0]); // Assuming the API returns an array with one object
     } catch (error) {
       console.error("Error fetching score data:", error);
     } finally {
+      MainButton.hideProgress();
       setIsLoading(false); // Set loading to false when fetch ends
     }
   };
@@ -58,8 +66,9 @@ function App() {
     <>
       <h1>برخورد عناصر</h1>
       <div className="card">
-        {isLoading ? (
-          <div className="progress-bar">صبر کنید ...</div> // Simple progress bar
+        {isLoading ? 
+        (
+          <div className="progress-bar">  </div> // Simple progress bar
         ) : scoreData ? (
           <div className="score-data">
             <p>User ID: {scoreData.userid}</p>
