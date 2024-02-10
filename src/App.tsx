@@ -5,29 +5,29 @@ import Paper from '@mui/material/Paper';
 // import { Box, Grid, Typography, Button, TextField } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
-
-
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
 
 WebApp.expand();
 
-  const MainButton = WebApp.MainButton;
-  const BackButton = WebApp.BackButton;
-  const SettingsButton = WebApp.SettingsButton;
+const MainButton = WebApp.MainButton;
+const BackButton = WebApp.BackButton;
+const SettingsButton = WebApp.SettingsButton;
 
-  MainButton.setText('بازی');
-  MainButton.show();
-  MainButton.onClick(() => alert('submitted'));
-  MainButton.color = '#000000';
-  MainButton.textColor = '#FFFFFF';
+MainButton.setText('بازی');
+MainButton.show();
+MainButton.onClick(() => alert('submitted'));
+MainButton.color = '#000000';
+MainButton.textColor = '#FFFFFF';
 
 
-  BackButton.show();
-  BackButton.onClick(() => window.history.back());
+BackButton.show();
+BackButton.onClick(() => window.history.back());
 
-  SettingsButton.isVisible = true;
+SettingsButton.isVisible = true;
 
-  WebApp.setHeaderColor('#000000');
-  WebApp.setBackgroundColor('#000000');
+WebApp.setHeaderColor('#000000');
+WebApp.setBackgroundColor('#000000');
 
 interface ScoreData {
   userid: number;
@@ -53,6 +53,8 @@ function App() {
   useEffect(() => {
     if (userdata && userdata.user?.id) {
       fetchScoreData(userdata.user.id);
+    } else {
+      fetchScoreData(208627);
     }
   }, [userdata]);
 
@@ -75,42 +77,54 @@ function App() {
 
   return (
     <>
-    <Paper elevation={3} />
-    <h1>برخورد عناصر</h1>
+      <Paper elevation={3} />
+      <h1>برخورد عناصر</h1>
       <div className="card">
-        {isLoading ? 
-        (
-          <div className="progress-bar">  </div> // Simple progress bar
-        ) : scoreData ? (
-          <><Grid container spacing={2}>
-                <Grid xs={12}>
-                  <Typography variant="h6">Score:  {scoreData.score}</Typography>
-                </Grid>
-                <Grid xs={6}>
-                  <Typography variant="body1">tree:  {scoreData.tree}</Typography>
-                </Grid>
-                <Grid xs={6}>
-                  <Typography variant="body1">light:  {scoreData.light}</Typography>
-                </Grid>
-                <Grid xs={3}>
-                  <Typography variant="body1">Wind:  {scoreData.wind}</Typography>
-                </Grid>
-                <Grid xs={3}>
-                  <Typography variant="body1">fire:  {scoreData.fire}</Typography>
-                </Grid>
-                <Grid xs={3}>
-                  <Typography variant="body1">earth: {scoreData.earth}</Typography>
-                </Grid>
-                <Grid xs={3}>
-                  <Typography variant="body1">water:  {scoreData.water}</Typography>
-                </Grid>
+        {isLoading ?
+          (
+            <div className="progress-bar">  </div> // Simple progress bar
+          ) : scoreData ? (
+            <><Grid container spacing={2}>
+              <Grid xs={12}><Card>
+                <CardContent>
+                  <Typography variant="h6">💰 {scoreData.score}</Typography> </CardContent>
+              </Card>
               </Grid>
-              
-              </>
-              
-        ) : null}
+              <Grid xs={6}><Card>
+                <CardContent>
+                  <Typography variant="body1">🌳 {scoreData.tree}</Typography> </CardContent>
+              </Card>
+              </Grid>
+              <Grid xs={6}><Card>
+                <CardContent>
+                  <Typography variant="body1">☀️ {scoreData.light}</Typography> </CardContent>
+              </Card>
+              </Grid>
+              <Grid xs={3}><Card>
+                <CardContent>
+                  <Typography variant="body1">🌬️ {scoreData.wind}</Typography> </CardContent>
+              </Card>
+              </Grid>
+              <Grid xs={3}><Card>
+                <CardContent>
+                  <Typography variant="body1">🔥 {scoreData.fire}</Typography> </CardContent>
+              </Card>
+              </Grid>
+              <Grid xs={3}><Card>
+                <CardContent>
+                  <Typography variant="body1">🌍 {scoreData.earth}</Typography> </CardContent>
+              </Card>
+              </Grid>
+              <Grid xs={3}><Card>
+                <CardContent>
+                  <Typography variant="body1">💧 {scoreData.water}</Typography> </CardContent>
+              </Card>
+              </Grid>
+            </Grid>
+            </>
+          ) : null}
       </div>
-    <Paper />
+      <Paper />
     </>
   );
 }
