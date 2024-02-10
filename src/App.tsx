@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react';
 import './App.css'
 import WebApp from '@twa-dev/sdk'
+
+WebApp.expand();
+
   const MainButton = WebApp.MainButton;
   const BackButton = WebApp.BackButton;
   const SettingsButton = WebApp.SettingsButton;
@@ -17,7 +20,9 @@ import WebApp from '@twa-dev/sdk'
 
   SettingsButton.isVisible = true;
 
-  
+  WebApp.setHeaderColor('#000000');
+  WebApp.setBackgroundColor('#000000');
+
 interface ScoreData {
   userid: number;
   score: number;
