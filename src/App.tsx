@@ -19,7 +19,7 @@ MainButton.color = '#1976d2';
 MainButton.textColor = '#FFFFFF';
 
 
-BackButton.show();
+BackButton.hide();
 BackButton.onClick(() => window.history.back());
 
 SettingsButton.isVisible = true;
