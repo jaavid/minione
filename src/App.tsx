@@ -29,7 +29,6 @@ interface ScoreData {
 }
 
 function App() {
-  const [count, setCount] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [scoreData, setScoreData] = useState<ScoreData | null>(null);
   const userdata = WebApp.initDataUnsafe;
@@ -57,19 +56,20 @@ function App() {
 
   return (
     <>
-      <h1>Elemental Game</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count +  1)}>
-          count is {count}
-        </button>
-      </div>
+      <h1>برخورد عناصر</h1>
       <div className="card">
         {isLoading ? (
-          <div className="progress-bar">Loading...</div> // Simple progress bar
+          <div className="progress-bar">صبر کنید ...</div> // Simple progress bar
         ) : scoreData ? (
           <div className="score-data">
             <p>User ID: {scoreData.userid}</p>
-            <p>Score: {scoreData.score}</p>
+            <p>امتیاز: {scoreData.score}</p>
+            <p>درخت: {scoreData.tree}</p>
+            <p>نور: {scoreData.light}</p>
+            <p>آب: {scoreData.water}</p>
+            <p>باد: {scoreData.wind}</p>
+            <p>زمان: {scoreData.earth}</p>
+            <p>آتش: {scoreData.fire}</p>
             {/* Add more fields as needed */}
           </div>
         ) : null}
