@@ -4,8 +4,8 @@ import WebApp from '@twa-dev/sdk'
 import Paper from '@mui/material/Paper';
 // import { Box, Grid, Typography, Button, TextField } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
-import Box from '@mui/material/Box';
-import { Card } from '@mui/material';
+import Typography from '@mui/material/Typography';
+
 
 
 WebApp.expand();
@@ -82,32 +82,32 @@ function App() {
         (
           <div className="progress-bar">  </div> // Simple progress bar
         ) : scoreData ? (
-          <><div className="score-data">
-              
-              
-              
-              
-              <p>آب: {scoreData.water}</p>
-              <p>باد: {scoreData.wind}</p>
-              <p>زمین: {scoreData.earth}</p>
-              <p>آتش: {scoreData.fire}</p>
-              {/* Add more fields as needed */}
-            </div><Grid container spacing={2}>
-                <Grid xs={8}>
-                  <Box>
-                  <p>User ID: {scoreData.userid}</p>
-                  </Box>          
+          <><Grid container spacing={2}>
+                <Grid xs={12}>
+                  <Typography variant="h6">Score:  {scoreData.score}</Typography>
                 </Grid>
-                <Grid xs={8}>
-                <Card><p>امتیاز: {scoreData.score}</p>  </Card>
+                <Grid xs={6}>
+                  <Typography variant="body1">tree:  {scoreData.tree}</Typography>
                 </Grid>
-                <Grid xs={8}>
-                <Card><p>درخت: {scoreData.tree}</p></Card>
+                <Grid xs={6}>
+                  <Typography variant="body1">light:  {scoreData.light}</Typography>
                 </Grid>
-                <Grid xs={8}>
-                  <Card><p>نور: {scoreData.light}</p></Card>          
+                <Grid xs={3}>
+                  <Typography variant="body1">Wind:  {scoreData.wind}</Typography>
                 </Grid>
-              </Grid></>
+                <Grid xs={3}>
+                  <Typography variant="body1">fire:  {scoreData.fire}</Typography>
+                </Grid>
+                <Grid xs={3}>
+                  <Typography variant="body1">earth: {scoreData.earth}</Typography>
+                </Grid>
+                <Grid xs={3}>
+                  <Typography variant="body1">water:  {scoreData.water}</Typography>
+                </Grid>
+              </Grid>
+              
+              </>
+              
         ) : null}
       </div>
     <Paper />
