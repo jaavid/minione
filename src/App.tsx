@@ -9,11 +9,15 @@ function App() {
   console.log(WebApp);
 
   const MainButton = WebApp.MainButton;
+  const BackButton = WebApp.BackButton;
 
   MainButton.setText('بازی');
   MainButton.show();
   MainButton.onClick(() => alert('submitted'));
-
+  MainButton.color = '#000000';
+  MainButton.textColor = '#FFFFFF';
+  BackButton.show();
+  BackButton.onClick(() => window.history.back());
 
   return (
     <>
