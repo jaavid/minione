@@ -76,10 +76,8 @@ function App() {
 
   return (
     <>
-    <AppBar position="static">
+    <AppBar position="fixed">
         <Toolbar>
-          
-
           <IconButton edge="start" color="inherit" aria-label="profile">
             {/* <Avatar alt="Profile Picture" src="/path/to/your/image.jpg" /> */}
             <Person></Person>
@@ -93,6 +91,7 @@ function App() {
         </Toolbar>
       </AppBar>
       <Paper elevation={3} />
+      <br /><br />
       <h1>برخورد عناصر</h1>
       <div className="card">
         {isLoading ?
