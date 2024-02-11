@@ -210,11 +210,11 @@ function Item(props: ItemProps)
       <CardContent >
           <Grid container spacing={2}>
               <Grid xs={6}>
-              {name}
-              <br />
                   <Typography variant="h2">{icon}</Typography>              
               </Grid>            
             <Grid xs={6}>
+            <Typography variant="h1">{name}</Typography>
+              <br />
             {description}
               </Grid>
           </Grid>            
