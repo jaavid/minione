@@ -213,7 +213,7 @@ function Item(props: ItemProps)
                   <Typography variant="h2">{icon}</Typography>              
               </Grid>            
             <Grid xs={6}>
-            <Typography variant="h1">{name}</Typography>
+            <Typography variant="h3">{name}</Typography>
               <br />
             {description}
               </Grid>
