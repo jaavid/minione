@@ -1,53 +1,63 @@
 import { useState, useEffect } from 'react';
 import './App.css'
 import WebApp from '@twa-dev/sdk'
-import { AppBar, Toolbar, IconButton, Typography, Card, CardContent, Paper } from '@mui/material';
+import { AppBar, Toolbar, IconButton, Typography, Card, CardContent, Paper} from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 import CloseIcon from '@mui/icons-material/Close';
 import {Person} from '@mui/icons-material';
-
-WebApp.expand();
-
-const MainButton = WebApp.MainButton;
-const BackButton = WebApp.BackButton;
-const SettingsButton = WebApp.SettingsButton;
-
-MainButton.setText('بازی');
-MainButton.show();
-MainButton.onClick(() => alert('submitted'));
-MainButton.color = '#1976d2';
-MainButton.textColor = '#FFFFFF';
-
-
-BackButton.hide();
-BackButton.onClick(() => window.history.back());
-
-SettingsButton.isVisible = true;
-
-WebApp.setHeaderColor('#1976d2');
-WebApp.setBackgroundColor('#000000');
-
-interface ScoreData {
-  userid: number;
-  score: number;
-  tree: number;
-  light: number;
-  water: number;
-  wind: number;
-  fire: number;
-  earth: number;
-  id: number;
-  telegramId: number;
-  username: string;
-  name: string;
-  inviterid: null | number;
-}
+import TelegramIcon from '@mui/icons-material/Telegram';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import { ScoreData } from './interface/ScoreData';
+import Carousel from 'react-material-ui-carousel'
 
 function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [scoreData, setScoreData] = useState<ScoreData | null>(null);
   const userdata = WebApp.initDataUnsafe;
   
+  var items = [
+    {
+        icon: "💧",
+        description:"عنصر زندگی",
+        name: "آب",
+        win:['🔥','🌍'],
+        lose:[],
+        equal:['🌬️'],
+        extrawin:'🌍',
+        extraelement:'🌳'
+    },
+    {
+        icon: "🌍",
+        description:"عنصر رویش",
+        name: "زمین - خاک",
+        win:['🔥','🌍'],
+        lose:['🔥'],
+        equal:['🌬️'],
+        extrawin:'💧',
+        extraelement:'🌳'
+    },
+    {
+      icon: "🔥",
+      description:"عنصر خشم",
+      name: "آتش",
+      win:['🔥','🌍'],
+      lose:['💧'],
+      equal:['🌬️'],
+      extrawin:'🌬️',
+      extraelement:'☀️'
+  },
+  {
+      icon: "🌬️",
+      description:"عنصر نفس",
+      name: "باد - هوا",
+      win:['🔥','🌍'],
+      lose:[],
+      equal:['🌬️'],
+      extrawin:'🔥',
+      extraelement:'☀️'
+  }
+]
 
   useEffect(() => {
     if (userdata && userdata.user?.id) {
@@ -60,17 +70,18 @@ function App() {
   const fetchScoreData = async (userId: number) => {
     setIsLoading(true); // Set loading to true when fetch starts
     try {
-      MainButton.showProgress(true); // Show progress indicator on MainButton
+      WebApp.MainButton.showProgress(true); // Show progress indicator on MainButton
       const response = await fetch(`https://api.rahomaskan.com/api/score?tgid=${userId}`);
       const data = await response.json();
       setScoreData(data[0]); // Assuming the API returns an array with one object
     } catch (error) {
       console.error("Error fetching score data:", error);
     } finally {
-      MainButton.hideProgress();
+      WebApp.MainButton.hideProgress();
       setIsLoading(false); // Set loading to false when fetch ends
     }
   };
+
 
   // Rest of your component logic...
 
@@ -85,6 +96,7 @@ function App() {
           <Typography variant="h6" sx={{ flexGrow:  1 }}>
             نسخه بتا
           </Typography>
+          <IconButton edge="end" color="inherit" aria-label="chat"><TelegramIcon/></IconButton>
           <IconButton edge="end" color="inherit" aria-label="close" onClick={() => WebApp.close()}>
             <CloseIcon />
           </IconButton>
@@ -92,13 +104,18 @@ function App() {
       </AppBar>
       <Paper elevation={3} />
       <br /><br />
-      <h1>برخورد عناصر</h1>
       <div className="card">
         {isLoading ?
           (
             <div className="progress-bar">  </div> // Simple progress bar
           ) : scoreData ? (
-            <><Grid container spacing={2}>
+            <>       
+            <Carousel NextIcon={<ArrowBackIosNewIcon/>} PrevIcon={<ArrowForwardIosIcon/>}>
+            {
+                items.map( (item, i) => <Item key={i} item={item} /> )
+            }
+        </Carousel> 
+            <Grid container spacing={2}>
               <Grid xs={12}><Card>
                 <CardContent>
                   <Typography variant="h2">
@@ -170,4 +187,63 @@ function App() {
   );
 }
 
+interface ItemData {
+  icon: string;
+  description: string;
+  name: string;
+  win: string[];
+  lose: string[];
+  equal: string[];
+  extrawin: string;
+  extraelement: string;
+}
+
+interface ItemProps {
+  item: ItemData;
+}
+
+function Item(props: ItemProps) 
+{
+  const { icon, description, name, win, lose, equal,extrawin, extraelement } = props.item;
+
+    return (
+      <Card variant="outlined">
+      <CardContent >
+          <Grid container spacing={2}>
+              <Grid xs={6}>
+              {name}
+              <br />
+                  <Typography variant="h2">{icon}</Typography>              
+              </Grid>            
+            <Grid xs={6}>
+            {description}
+              </Grid>
+          </Grid>            
+          <Grid container spacing={2}>
+          <Grid xs={3}>
+            <Typography variant="body1">
+              قویتر از : {win.join('و ')}
+            </Typography>
+            </Grid>
+            <Grid xs={3}>
+            <Typography variant="body1">
+              ضعیفتر از : {lose.join(', ')}
+            </Typography>
+            </Grid>
+            <Grid xs={3}>
+            <Typography variant="body1">
+              برابر با : {equal.join(', ')}
+            </Typography>
+          </Grid>
+          <Grid xs={3}>
+            <Typography variant="body1">
+              تولید {extraelement} با {extrawin}
+            </Typography>
+          </Grid>
+        </Grid>
+        </CardContent>
+        </Card>
+        
+    )
+}
 export default App;
