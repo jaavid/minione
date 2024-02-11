@@ -30,7 +30,7 @@ function App() {
     {
         icon: "🌍",
         description:"عنصر رویش",
-        name: "زمین - خاک",
+        name: "زمین",
         win:['🔥','🌍'],
         lose:['🔥'],
         equal:['🌬️'],
@@ -50,7 +50,7 @@ function App() {
   {
       icon: "🌬️",
       description:"عنصر نفس",
-      name: "باد - هوا",
+      name: "باد",
       win:['🔥','🌍'],
       lose:[],
       equal:['🌬️'],
@@ -213,7 +213,7 @@ function Item(props: ItemProps)
                   <Typography variant="h2">{icon}</Typography>              
               </Grid>            
             <Grid xs={6}>
-            <span style={{ fontWeight:  900, fontSize: '32px' }}>{name}</span>
+            <span style={{ fontWeight:  900, fontSize: '24px' }}>{name}</span>
               <br />
             {description}
               </Grid>
