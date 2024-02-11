@@ -119,8 +119,7 @@ function App() {
               <Grid xs={12}><Card>
                 <CardContent>
                   <Typography variant="h2">
-                    💰<br />
-                    {scoreData.score}
+                    💰  {scoreData.score}
                     </Typography>
                     </CardContent>
               </Card>
