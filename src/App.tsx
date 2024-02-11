@@ -9,7 +9,10 @@ import TelegramIcon from '@mui/icons-material/Telegram';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { ScoreData } from './interface/ScoreData';
-import Carousel from 'react-material-ui-carousel'
+import Carousel from 'react-material-ui-carousel';
+import { Steps } from 'antd';
+import { ShrinkOutlined, FireOutlined, GlobalOutlined ,CodeSandboxOutlined } from '@ant-design/icons';
+
 
 function App() {
   const [isLoading, setIsLoading] = useState(false);
@@ -104,6 +107,7 @@ function App() {
       </AppBar>
       <Paper elevation={3} />
       <br /><br />
+      
       <div className="card">
         {isLoading ?
           (
@@ -126,15 +130,17 @@ function App() {
               </Grid>
               <Grid xs={6}><Card>
                 <CardContent>
+                <Steps direction="vertical" current={3} size="small" items={[{title: 'عنصر زمین',icon: <GlobalOutlined />},{title: ' در برخورد با آب',description:'یا برعکس',icon: <ShrinkOutlined />},{title: 'یک درخت می‌سازد',icon: <CodeSandboxOutlined />},]}/>
                   <Typography variant="h3">
                   🌳<br />
                   {scoreData.tree}
-                  </Typography>
+                  </Typography>              
                 </CardContent>
               </Card>
               </Grid>
               <Grid xs={6}><Card>
                 <CardContent>
+                <Steps direction="vertical" current={3} size="small" items={[{title: 'عنصر آتش',icon: <FireOutlined />},{title: ' در برخورد با باد',description:'یا برعکس',icon: <ShrinkOutlined />},{title: 'یک نور می‌سازد',icon: <CodeSandboxOutlined />},]}/>
                   <Typography variant="h3">
                     ☀️<br />
                     {scoreData.light}
@@ -142,16 +148,16 @@ function App() {
                   </CardContent>
               </Card>
               </Grid>
-              <Grid xs={3}><Card>
-                <CardContent>
+              <Grid xs={3}><Card raised={true}>
+              <CardContent style={{backgroundColor: "red", padding: "10px 0 0 0"}}>
                   <Typography variant="h4">
                     🌬️<br />
                     {scoreData.wind}
                     </Typography> </CardContent>
               </Card>
               </Grid>
-              <Grid xs={3}><Card>
-                <CardContent>
+              <Grid xs={3}><Card raised={true}>
+                <CardContent style={{backgroundColor: "red", padding: "10px 0 0 0"}}>
                   <Typography variant="h4">
                     🔥<br />
                   {scoreData.fire}
@@ -159,8 +165,8 @@ function App() {
                   </CardContent>
               </Card>
               </Grid>
-              <Grid xs={3}><Card>
-                <CardContent>
+              <Grid xs={3}><Card raised={true}>
+              <CardContent style={{backgroundColor: "red", padding: "10px 0 0 0"}}>
                   <Typography variant="h4">
                     🌍<br />
                     {scoreData.earth}
@@ -168,8 +174,8 @@ function App() {
                 </CardContent>
               </Card>
               </Grid>
-              <Grid xs={3}><Card>
-                <CardContent>
+              <Grid xs={3}><Card raised={true}>
+              <CardContent style={{backgroundColor: "red", padding: "10px 0 0 0"}}>
                   <Typography variant="h4">
                     💧<br />
                     {scoreData.water}
