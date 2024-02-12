@@ -1,11 +1,7 @@
 import { useRef, useState, useEffect } from "react";
 import "./App.css";
 import WebApp from "@twa-dev/sdk";
-import {
-  AppBar,
-  Toolbar,
-  IconButton,
-} from "@mui/material";
+import { AppBar, Toolbar, IconButton } from "@mui/material";
 import { ScoreData } from "./interface/ScoreData";
 import CountUp from "react-countup";
 import {
@@ -21,7 +17,7 @@ import {
   Col,
   Statistic,
   Typography,
-  Watermark
+  Watermark,
 } from "antd";
 import {
   QuestionCircleOutlined,
@@ -158,8 +154,8 @@ function App() {
     },
   ];
   const gridStyle: React.CSSProperties = {
-    width: '50%',
-    textAlign: 'center',
+    width: "50%",
+    textAlign: "center",
   };
   // const contentStyle: React.CSSProperties = {
   //   height: '160px',
@@ -190,7 +186,12 @@ function App() {
               </>
             ) : null}
           </Space>
-          <Title level={5} style={{textAlign:'center', color:'white', flexGrow:'1'}}>نسخه بتا</Title>
+          <Title
+            level={5}
+            style={{ textAlign: "center", color: "white", flexGrow: "1" }}
+          >
+            نسخه بتا
+          </Title>
 
           {isLoading ? (
             <>
@@ -220,106 +221,134 @@ function App() {
           </IconButton>
         </Toolbar>
       </AppBar>
-   
-        {isLoading ? (
-          <Skeleton active />
-        ) : scoreData ? (
-          <>
-            {/* <Carousel NextIcon={<RightOutlined />} PrevIcon={<LeftOutlined />}>
+
+      {isLoading ? (
+        <Skeleton active />
+      ) : scoreData ? (
+        <>
+          {/* <Carousel NextIcon={<RightOutlined />} PrevIcon={<LeftOutlined />}>
               {
                   items.map( (item, i) => <Item key={i} item={item} /> )
               }
           </Carousel>  */}
 
-            <Carousel dotPosition="right" autoplay={true} autoplaySpeed={2000} style={{ height: "250px" }}>
-              
-              {items.map((item) => (
-                <div>
-                  <Space direction="vertical" size="middle" style={{ display: 'flex' }}>
+          <Carousel
+            dotPosition="right"
+            autoplay={true}
+            autoplaySpeed={2000}
+            style={{ height: "250px" }}
+          >
+            {items.map((item) => (
+              <div>
+                <Space
+                  direction="vertical"
+                  size="middle"
+                  style={{ display: "flex" }}
+                >
                   <Row gutter={16}>
                     <Col span={12}>
-                    <Watermark gap={[20,20]} height={30} width={50} content={item.icon} font={{ fontSize: 20}} >
-                      <Card style={{ fontFamily:"Vazirmatn", height: "220px", background: "#364d79" }}>
-                        <Title style={{color:"white"}}>{item.name}</Title>
-                      </Card>
-                    </Watermark>                    
+                      <Watermark
+                        gap={[20, 20]}
+                        height={30}
+                        width={50}
+                        content={item.icon}
+                        font={{ fontSize: 20 }}
+                      >
+                        <Card
+                          style={{
+                            fontFamily: "Vazirmatn",
+                            height: "220px",
+                            background: "#364d79",
+                          }}
+                        >
+                          <Title style={{ color: "white" }}>{item.name}</Title>
+                        </Card>
+                      </Watermark>
                     </Col>
                     <Col span={12}>
-                      <Card style={{ fontFamily:"Vazirmatn", height: "220px"}} title={item.description}>
-                      
-                        <Card.Grid style={gridStyle} title="قوی‌تر از :">{item.win.join(", ")}</Card.Grid>
-                        <Card.Grid style={gridStyle} title="ضعیف‌تر از :">{item.lose.join(", ")}</Card.Grid>
-                        <Card.Grid style={gridStyle} title="برابر با :">{item.equal.join(", ")}</Card.Grid>
-                        <Card.Grid style={gridStyle} title="تولید :">{item.extraelement} با {item.extrawin}</Card.Grid>
-                      
+                      <Card
+                        style={{ fontFamily: "Vazirmatn", height: "220px" }}
+                        title={item.description}
+                      >
+                        <Card.Grid style={gridStyle} title="قوی‌تر از :">
+                          {item.win.join(", ")}
+                        </Card.Grid>
+                        <Card.Grid style={gridStyle} title="ضعیف‌تر از :">
+                          {item.lose.join(", ")}
+                        </Card.Grid>
+                        <Card.Grid style={gridStyle} title="برابر با :">
+                          {item.equal.join(", ")}
+                        </Card.Grid>
+                        <Card.Grid style={gridStyle} title="تولید :">
+                          {item.extraelement} با {item.extrawin}
+                        </Card.Grid>
                       </Card>
                     </Col>
                   </Row>
-                  </Space>
-                </div>
-              ))}
-            </Carousel>
+                </Space>
+              </div>
+            ))}
+          </Carousel>
 
-            <Space size={64}>
-              <Row>
-                <Col span={12}>
-                  <Card bordered={false} ref={ref1}>
-                    <Statistic
-                      title="درختان"
-                      value={scoreData.tree}
-                      precision={0}
-                      valueStyle={{ color: "#3f8600" }}
-                      suffix="🌳"
-                    />
-                  </Card>
-                </Col>
-                <Col span={12}>
-                  <Card bordered={false} ref={ref2}>
-                    <Statistic
-                      title="نورها"
-                      value={scoreData.light}
-                      precision={0}
-                      valueStyle={{ color: "#fcda56" }}
-                      suffix="☀️"
-                    />
-                  </Card>
-                </Col>
-              </Row>
-            </Space>
-            <br />
-            <br />
-            <Space size={64} ref={ref3}>
-              <Avatar.Group>
-                <Badge
-                  count={scoreData.wind > 0 ? scoreData.wind : "۰"}
-                  overflowCount={50}
-                >
-                  <Avatar size={64}>🌬️</Avatar>
-                </Badge>
-                <Badge
-                  count={scoreData.water > 0 ? scoreData.water : "۰"}
-                  overflowCount={50}
-                >
-                  <Avatar size={64}>💧</Avatar>
-                </Badge>
-                <Badge
-                  count={scoreData.fire > 0 ? scoreData.fire : "۰"}
-                  overflowCount={50}
-                >
-                  <Avatar size={64}>🔥</Avatar>
-                </Badge>
-                <Badge
-                  count={scoreData.earth > 0 ? scoreData.earth : "۰"}
-                  overflowCount={50}
-                >
-                  <Avatar size={64}>🌍</Avatar>
-                </Badge>
-              </Avatar.Group>
-            </Space>
-          </>
-        ) : null}
-      
-      
+          <Space size={64}>
+            <Row>
+              <Col span={12}>
+                <Card bordered={false} ref={ref1}>
+                  <Statistic
+                    title="درختان"
+                    value={scoreData.tree}
+                    precision={0}
+                    valueStyle={{ color: "#3f8600" }}
+                    suffix="🌳"
+                  />
+                </Card>
+              </Col>
+              <Col span={12}>
+                <Card bordered={false} ref={ref2}>
+                  <Statistic
+                    title="نورها"
+                    value={scoreData.light}
+                    precision={0}
+                    valueStyle={{ color: "#fcda56" }}
+                    suffix="☀️"
+                  />
+                </Card>
+              </Col>
+            </Row>
+          </Space>
+          <br />
+          <br />
+          <Space size={64} ref={ref3}>
+            <Avatar.Group>
+              <Badge
+                count={scoreData.wind > 0 ? scoreData.wind : "۰"}
+                overflowCount={50}
+              >
+                <Avatar size={64}>🌬️</Avatar>
+              </Badge>
+              <Badge
+                count={scoreData.water > 0 ? scoreData.water : "۰"}
+                overflowCount={50}
+              >
+                <Avatar size={64}>💧</Avatar>
+              </Badge>
+              <Badge
+                count={scoreData.fire > 0 ? scoreData.fire : "۰"}
+                overflowCount={50}
+              >
+                <Avatar size={64}>🔥</Avatar>
+              </Badge>
+              <Badge
+                count={scoreData.earth > 0 ? scoreData.earth : "۰"}
+                overflowCount={50}
+              >
+                <Avatar size={64}>🌍</Avatar>
+              </Badge>
+            </Avatar.Group>
+          </Space>
+        </>
+      ) : null}
+
       <Tour open={open} onClose={() => setOpen(false)} steps={steps} />
     </>
   );
