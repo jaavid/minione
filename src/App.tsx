@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import './App.css'
 import WebApp from '@twa-dev/sdk'
 import { AppBar, Toolbar, IconButton, Typography, CardContent, Paper} from '@mui/material';
@@ -6,8 +6,8 @@ import Grid from '@mui/material/Unstable_Grid2';
 import { ScoreData } from './interface/ScoreData';
 import Carousel from 'react-material-ui-carousel';
 import CountUp from 'react-countup';
-import { Card, Badge, Steps, Avatar, Space, Row, Col, Statistic } from 'antd';
-import { SyncOutlined, LeftOutlined, RightOutlined,CloseSquareOutlined, RobotOutlined, UserOutlined, ShrinkOutlined, FireOutlined, GlobalOutlined ,CodeSandboxOutlined } from '@ant-design/icons';
+import { Tour, TourProps , Card, Badge, Steps, Avatar, Space, Row, Col, Statistic } from 'antd';
+import { QuestionCircleOutlined, SyncOutlined, LeftOutlined, RightOutlined,CloseSquareOutlined, RobotOutlined, UserOutlined, ShrinkOutlined, FireOutlined, GlobalOutlined ,CodeSandboxOutlined } from '@ant-design/icons';
 import { valueType, FormatConfig } from 'antd/lib/statistic/utils';
 
 function App() {
@@ -93,6 +93,50 @@ function App() {
   };
   
 
+
+
+
+  const ref1 = useRef(null);
+  const ref2 = useRef(null);
+  const ref3 = useRef(null);
+
+  const [open, setOpen] = useState<boolean>(false);
+
+  const steps: TourProps['steps'] = [
+    {
+      title: 'درخت',
+      description: 'اینجا تعداد درختی که در حین بازی پیدا کردید را میبینید.',
+      target: () => ref1.current,
+      nextButtonProps: {
+        children: 'بعدی', 
+      },
+    },
+    {
+      title: 'نور',
+      description: 'اینجا نورهایی که در حین بازی پیدا کردید را میبینید',
+      target: () => ref2.current,
+      nextButtonProps: {
+        children: 'بعدی', // Custom Next Button Text
+      },
+      prevButtonProps: {
+        children: 'قبلی', // Custom Previous Button Text
+      },
+    },
+    {
+      title: 'عناصر',
+      description: 'این تعدا عناصر برای بازی در حال حاضر در اکانت شما موجود هستند',
+      target: () => ref3.current,
+      nextButtonProps: {
+        children: 'تمام', // Custom Next Button Text
+      },
+      prevButtonProps: {
+        children: 'قبلی', // Custom Previous Button Text
+      },
+    },
+  ];
+
+
+
   return (
     <>
     <AppBar position="fixed">
@@ -105,7 +149,7 @@ function App() {
                 <><SyncOutlined spin /></>
                 ): scoreData ? (
                 <>
-                <Statistic
+                <Statistic 
                   prefix='💰'
                   valueStyle={{ color: '#ffffff' }}
                   value={scoreData.score >  0 ? scoreData.score :  0}
@@ -120,6 +164,8 @@ function App() {
           <Typography variant="h6" sx={{ flexGrow:  1 }}>
             نسخه بتا
           </Typography>
+          
+          <IconButton edge="end" color="inherit" aria-label="chat" onClick={() => setOpen(true)}><QuestionCircleOutlined /></IconButton>
           <IconButton edge="end" color="inherit" aria-label="chat"><RobotOutlined /></IconButton>
           <IconButton edge="end" color="inherit" aria-label="close" onClick={() => WebApp.close()}>
             <CloseSquareOutlined />
@@ -151,7 +197,7 @@ function App() {
             </Row>
               <Row gutter={2}>
                   <Col span={12}>
-                    <Card bordered={false}>
+                    <Card bordered={false} ref={ref1}>
                       <Statistic
                         title="درختان"
                         value={scoreData.tree}
@@ -162,7 +208,7 @@ function App() {
                     </Card>
                   </Col>
                   <Col span={12}>
-                    <Card bordered={false}>
+                    <Card bordered={false} ref={ref2}>
                       <Statistic
                         title="نورها"
                         value={scoreData.light}
@@ -174,7 +220,7 @@ function App() {
                   </Col>
                 </Row>
                 <br /><br />
-                <Space size={64}>
+                <Space size={64} ref={ref3}>
                 <Avatar.Group>
                   <Badge count={scoreData.wind > 0 ?  scoreData.wind : '۰'} overflowCount={50}>
                     <Avatar size={64}>🌬️</Avatar>
@@ -195,6 +241,7 @@ function App() {
           ) : null}
       </div>
       <Paper />
+      <Tour open={open} onClose={() => setOpen(false)} steps={steps} />
     </>
   );
 }
