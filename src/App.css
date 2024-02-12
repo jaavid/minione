@@ -43,3 +43,7 @@
 .ant-steps-item-icon {
   float: right !important;
 }
+
+.ant-tour {
+  max-width: 70% !important;
+}
