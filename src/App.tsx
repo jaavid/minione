@@ -1,62 +1,84 @@
-import { useRef, useState, useEffect } from 'react';
-import './App.css'
-import WebApp from '@twa-dev/sdk'
-import { AppBar, Toolbar, IconButton, Typography, CardContent, Paper} from '@mui/material';
-import Grid from '@mui/material/Unstable_Grid2';
-import { ScoreData } from './interface/ScoreData';
-import Carousel from 'react-material-ui-carousel';
-import CountUp from 'react-countup';
-import { Tour, TourProps , Card, Badge, Avatar, Space, Row, Col, Statistic } from 'antd';
-import { QuestionCircleOutlined, SyncOutlined, LeftOutlined, RightOutlined,CloseOutlined, UserOutlined } from '@ant-design/icons';
-import { valueType, FormatConfig } from 'antd/lib/statistic/utils';
+import { useRef, useState, useEffect } from "react";
+import "./App.css";
+import WebApp from "@twa-dev/sdk";
+import {
+  AppBar,
+  Toolbar,
+  IconButton,
+} from "@mui/material";
+import { ScoreData } from "./interface/ScoreData";
+import CountUp from "react-countup";
+import {
+  Skeleton,
+  Carousel,
+  Tour,
+  TourProps,
+  Card,
+  Badge,
+  Avatar,
+  Space,
+  Row,
+  Col,
+  Statistic,
+  Typography,
+  Watermark
+} from "antd";
+import {
+  QuestionCircleOutlined,
+  SyncOutlined,
+  CloseOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
+import { valueType, FormatConfig } from "antd/lib/statistic/utils";
+const { Title } = Typography;
 
 function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [scoreData, setScoreData] = useState<ScoreData | null>(null);
   const userdata = WebApp.initDataUnsafe;
-  
+
   var items = [
     {
-        icon: "💧",
-        description:"عنصر زندگی",
-        name: "آب",
-        win:['🔥','🌍'],
-        lose:[],
-        equal:['🌬️'],
-        extrawin:'🌍',
-        extraelement:'🌳'
+      icon: "💧",
+      description: "عنصر زندگی",
+      name: "آب",
+      win: ["🔥", "🌍"],
+      lose: [],
+      equal: ["🌬️"],
+      extrawin: "🌍",
+      extraelement: "🌳",
     },
     {
-        icon: "🌍",
-        description:"عنصر رویش",
-        name: "زمین",
-        win:['🔥','🌍'],
-        lose:['🔥'],
-        equal:['🌬️'],
-        extrawin:'💧',
-        extraelement:'🌳'
+      icon: "🌍",
+      description: "عنصر رویش",
+      name: "زمین",
+      win: ["🔥", "🌍"],
+      lose: ["🔥"],
+      equal: ["🌬️"],
+      extrawin: "💧",
+      extraelement: "🌳",
     },
     {
       icon: "🔥",
-      description:"عنصر خشم",
+      description: "عنصر خشم",
       name: "آتش",
-      win:['🔥','🌍'],
-      lose:['💧'],
-      equal:['🌬️'],
-      extrawin:'🌬️',
-      extraelement:'☀️'
-  },
-  {
+      win: ["🔥", "🌍"],
+      lose: ["💧"],
+      equal: ["🌬️"],
+      extrawin: "🌬️",
+      extraelement: "☀️",
+    },
+    {
       icon: "🌬️",
-      description:"عنصر نفس",
+      description: "عنصر نفس",
       name: "باد",
-      win:['🔥','🌍'],
-      lose:[],
-      equal:['🌬️'],
-      extrawin:'🔥',
-      extraelement:'☀️'
-  }
-]
+      win: ["🔥", "🌍"],
+      lose: [],
+      equal: ["🌬️"],
+      extrawin: "🔥",
+      extraelement: "☀️",
+    },
+  ];
 
   useEffect(() => {
     if (userdata && userdata.user?.id) {
@@ -70,7 +92,9 @@ function App() {
     setIsLoading(true); // Set loading to true when fetch starts
     try {
       WebApp.MainButton.showProgress(true); // Show progress indicator on MainButton
-      const response = await fetch(`https://api.rahomaskan.com/api/score?tgid=${userId}`);
+      const response = await fetch(
+        `https://api.rahomaskan.com/api/score?tgid=${userId}`,
+      );
       const data = await response.json();
       setScoreData(data[0]); // Assuming the API returns an array with one object
     } catch (error) {
@@ -85,7 +109,7 @@ function App() {
   // @ts-ignore
   const formatter = (value: valueType, config?: FormatConfig) => {
     // Ensure the value is a number before using it in CountUp
-    if (typeof value === 'number') {
+    if (typeof value === "number") {
       return <CountUp end={value} separator="," />;
     }
     // Handle the case where value is not a number
@@ -98,199 +122,206 @@ function App() {
 
   const [open, setOpen] = useState<boolean>(false);
 
-  const steps: TourProps['steps'] = [
+  const steps: TourProps["steps"] = [
     {
-      title: 'درخت',
-      description: 'اینجا تعداد درختی که در حین بازی پیدا کردید را میبینید، در هربار برخورد زمین و آب شما یک درخت دریافت میکنید..',
+      title: "درخت",
+      description:
+        "اینجا تعداد درختی که در حین بازی پیدا کردید را میبینید، در هربار برخورد زمین و آب شما یک درخت دریافت میکنید..",
       target: () => ref1.current,
       nextButtonProps: {
-        children: 'بعدی', 
+        children: "بعدی",
       },
     },
     {
-      title: 'نور',
-      description: 'اینجا نورهایی که در حین بازی پیدا کردید را میبینید، در هربار برخورد باد و آتش شما یک درخت دریافت میکنید.',
+      title: "نور",
+      description:
+        "اینجا نورهایی که در حین بازی پیدا کردید را میبینید، در هربار برخورد باد و آتش شما یک درخت دریافت میکنید.",
       target: () => ref2.current,
       nextButtonProps: {
-        children: 'بعدی', // Custom Next Button Text
+        children: "بعدی", // Custom Next Button Text
       },
       prevButtonProps: {
-        children: 'قبلی', // Custom Previous Button Text
+        children: "قبلی", // Custom Previous Button Text
       },
     },
     {
-      title: 'عناصر',
-      description: 'این تعداد عناصر برای بازی در حال حاضر در اکانت شما موجود هستند',
+      title: "عناصر",
+      description:
+        "این تعداد عناصر برای بازی در حال حاضر در اکانت شما موجود هستند",
       target: () => ref3.current,
       nextButtonProps: {
-        children: 'تمام', // Custom Next Button Text
+        children: "تمام", // Custom Next Button Text
       },
       prevButtonProps: {
-        children: 'قبلی', // Custom Previous Button Text
+        children: "قبلی", // Custom Previous Button Text
       },
     },
   ];
-
-
+  const gridStyle: React.CSSProperties = {
+    width: '50%',
+    textAlign: 'center',
+  };
+  // const contentStyle: React.CSSProperties = {
+  //   height: '160px',
+  //   color: '#fff',
+  //   lineHeight: '160px',
+  //   textAlign: 'center',
+  //   background: '#364d79',
+  // };
 
   return (
     <>
-    <AppBar position="fixed">
+      <AppBar position="fixed">
         <Toolbar>
-          
-                   
-              <Space>
-                <Avatar shape="square" icon={<UserOutlined />} />
-                {isLoading? (
-                <><SyncOutlined spin /></>
-                ): scoreData ? (
-                <>
-                <Statistic 
-                  prefix='💰'
-                  valueStyle={{ color: '#ffffff' }}
-                  value={scoreData.score >  0 ? scoreData.score :  0}
+          <Space>
+            <Avatar shape="square" icon={<UserOutlined />} />
+            {isLoading ? (
+              <>
+                <SyncOutlined spin />
+              </>
+            ) : scoreData ? (
+              <>
+                <Statistic
+                  prefix="💰"
+                  valueStyle={{ color: "#ffffff" }}
+                  value={scoreData.score > 0 ? scoreData.score : 0}
                   formatter={formatter}
                 />
-                </>
-                ) : null}
-              </Space>
-          
-          
+              </>
+            ) : null}
+          </Space>
+          <Title level={5} style={{textAlign:'center', color:'white', flexGrow:'1'}}>نسخه بتا</Title>
 
-          <Typography variant="h6" sx={{ flexGrow:  1 }}>
-            نسخه بتا
-          </Typography>
-          
-          <IconButton edge="end" color="inherit" aria-label="chat" onClick={() => setOpen(true)}><QuestionCircleOutlined /></IconButton>          
-          <IconButton edge="end" color="error" aria-label="close" onClick={() => WebApp.close()}>
-          <CloseOutlined />
+          {isLoading ? (
+            <>
+              <IconButton edge="end" color="inherit">
+                <SyncOutlined spin />
+              </IconButton>
+            </>
+          ) : scoreData ? (
+            <>
+              <IconButton
+                edge="end"
+                color="inherit"
+                aria-label="chat"
+                onClick={() => setOpen(true)}
+              >
+                <QuestionCircleOutlined />
+              </IconButton>
+            </>
+          ) : null}
+          <IconButton
+            edge="end"
+            color="error"
+            aria-label="close"
+            onClick={() => WebApp.close()}
+          >
+            <CloseOutlined />
           </IconButton>
         </Toolbar>
       </AppBar>
-      <Paper elevation={3} />
-      <br /><br />
-      
-      <div className="card">
-        {isLoading ?
-          (
-            <div className="progress-bar">  </div> // Simple progress bar
-          ) : scoreData ? (
-            <>       
-            <Carousel NextIcon={<RightOutlined />} PrevIcon={<LeftOutlined />}>
+   
+        {isLoading ? (
+          <Skeleton active />
+        ) : scoreData ? (
+          <>
+            {/* <Carousel NextIcon={<RightOutlined />} PrevIcon={<LeftOutlined />}>
               {
                   items.map( (item, i) => <Item key={i} item={item} /> )
               }
-          </Carousel> 
-          <Space size={64}>
-                <Row>
-                  <Col span={12}>
-                    <Card bordered={false} ref={ref1}>
-                      <Statistic
-                        title="درختان"
-                        value={scoreData.tree}
-                        precision={0}
-                        valueStyle={{ color: '#3f8600' }}
-                        suffix="🌳"
-                      />
-                    </Card>
-                  </Col>
-                  <Col span={12}>
-                    <Card bordered={false} ref={ref2}>
-                      <Statistic
-                        title="نورها"
-                        value={scoreData.light}
-                        precision={0}
-                        valueStyle={{ color: '#fcda56' }}
-                        suffix="☀️"
-                      />
-                    </Card>
-                  </Col>
-                </Row>
-            </Space>
-                <br /><br />
-                <Space size={64} ref={ref3}>
-                <Avatar.Group>
-                  <Badge count={scoreData.wind > 0 ?  scoreData.wind : '۰'} overflowCount={50}>
-                    <Avatar size={64}>🌬️</Avatar>
-                  </Badge>
-                  <Badge count={scoreData.water > 0 ?  scoreData.water : '۰'} overflowCount={50}>
-                    <Avatar size={64}>💧</Avatar>
-                  </Badge>
-                  <Badge count={scoreData.fire > 0 ?  scoreData.fire : '۰'} overflowCount={50}>
-                    <Avatar size={64}>🔥</Avatar>
-                  </Badge>
-                  <Badge count={scoreData.earth > 0 ?  scoreData.earth : '۰'} overflowCount={50}>
-                    <Avatar size={64}>🌍</Avatar>
-                  </Badge>
-                  </Avatar.Group>
-                </Space>
+          </Carousel>  */}
 
-            </>
-          ) : null}
-      </div>
-      <Paper />
+            <Carousel dotPosition="right" autoplay={true} autoplaySpeed={2000} style={{ height: "250px" }}>
+              
+              {items.map((item) => (
+                <div>
+                  <Space direction="vertical" size="middle" style={{ display: 'flex' }}>
+                  <Row gutter={16}>
+                    <Col span={12}>
+                    <Watermark gap={[20,20]} height={30} width={50} content={item.icon} font={{ fontSize: 20}} >
+                      <Card style={{ fontFamily:"Vazirmatn", height: "220px", background: "#364d79" }}>
+                        <Title style={{color:"white"}}>{item.name}</Title>
+                      </Card>
+                    </Watermark>                    
+                    </Col>
+                    <Col span={12}>
+                      <Card style={{ fontFamily:"Vazirmatn", height: "220px"}} title={item.description}>
+                      
+                        <Card.Grid style={gridStyle} title="قوی‌تر از :">{item.win.join(", ")}</Card.Grid>
+                        <Card.Grid style={gridStyle} title="ضعیف‌تر از :">{item.lose.join(", ")}</Card.Grid>
+                        <Card.Grid style={gridStyle} title="برابر با :">{item.equal.join(", ")}</Card.Grid>
+                        <Card.Grid style={gridStyle} title="تولید :">{item.extraelement} با {item.extrawin}</Card.Grid>
+                      
+                      </Card>
+                    </Col>
+                  </Row>
+                  </Space>
+                </div>
+              ))}
+            </Carousel>
+
+            <Space size={64}>
+              <Row>
+                <Col span={12}>
+                  <Card bordered={false} ref={ref1}>
+                    <Statistic
+                      title="درختان"
+                      value={scoreData.tree}
+                      precision={0}
+                      valueStyle={{ color: "#3f8600" }}
+                      suffix="🌳"
+                    />
+                  </Card>
+                </Col>
+                <Col span={12}>
+                  <Card bordered={false} ref={ref2}>
+                    <Statistic
+                      title="نورها"
+                      value={scoreData.light}
+                      precision={0}
+                      valueStyle={{ color: "#fcda56" }}
+                      suffix="☀️"
+                    />
+                  </Card>
+                </Col>
+              </Row>
+            </Space>
+            <br />
+            <br />
+            <Space size={64} ref={ref3}>
+              <Avatar.Group>
+                <Badge
+                  count={scoreData.wind > 0 ? scoreData.wind : "۰"}
+                  overflowCount={50}
+                >
+                  <Avatar size={64}>🌬️</Avatar>
+                </Badge>
+                <Badge
+                  count={scoreData.water > 0 ? scoreData.water : "۰"}
+                  overflowCount={50}
+                >
+                  <Avatar size={64}>💧</Avatar>
+                </Badge>
+                <Badge
+                  count={scoreData.fire > 0 ? scoreData.fire : "۰"}
+                  overflowCount={50}
+                >
+                  <Avatar size={64}>🔥</Avatar>
+                </Badge>
+                <Badge
+                  count={scoreData.earth > 0 ? scoreData.earth : "۰"}
+                  overflowCount={50}
+                >
+                  <Avatar size={64}>🌍</Avatar>
+                </Badge>
+              </Avatar.Group>
+            </Space>
+          </>
+        ) : null}
+      
+      
       <Tour open={open} onClose={() => setOpen(false)} steps={steps} />
     </>
   );
-}
-
-interface ItemData {
-  icon: string;
-  description: string;
-  name: string;
-  win: string[];
-  lose: string[];
-  equal: string[];
-  extrawin: string;
-  extraelement: string;
-}
-
-interface ItemProps {
-  item: ItemData;
-}
-
-function Item(props: ItemProps) 
-{
-  const { icon, description, name, win, lose, equal,extrawin, extraelement } = props.item;
-
-    return (
-      <Card>
-      <CardContent >
-          <Grid container spacing={2}>
-              <Grid xs={6}>
-                  <Typography variant="h2">{icon}</Typography>              
-              </Grid>            
-            <Grid xs={6}>
-            <span style={{ fontWeight:  900, fontSize: '24px' }}>{name}</span>
-              <br />
-            {description}
-              </Grid>
-          </Grid>            
-          <Grid container spacing={2}>
-          <Grid xs={3}>
-            <Typography variant="body1">
-              قویتر از : {win.join('و ')}
-            </Typography>
-            </Grid>
-            <Grid xs={3}>
-            <Typography variant="body1">
-              ضعیفتر از : {lose.join(', ')}
-            </Typography>
-            </Grid>
-            <Grid xs={3}>
-            <Typography variant="body1">
-              برابر با : {equal.join(', ')}
-            </Typography>
-          </Grid>
-          <Grid xs={3}>
-            <Typography variant="body1">
-              تولید {extraelement} با {extrawin}
-            </Typography>
-          </Grid>
-        </Grid>
-        </CardContent>
-        </Card>
-        
-    )
 }
 export default App;
