@@ -6,8 +6,8 @@ import Grid from '@mui/material/Unstable_Grid2';
 import { ScoreData } from './interface/ScoreData';
 import Carousel from 'react-material-ui-carousel';
 import CountUp from 'react-countup';
-import { Tour, TourProps , Card, Badge, Steps, Avatar, Space, Row, Col, Statistic } from 'antd';
-import { QuestionCircleOutlined, SyncOutlined, LeftOutlined, RightOutlined,CloseSquareOutlined, RobotOutlined, UserOutlined, ShrinkOutlined, FireOutlined, GlobalOutlined ,CodeSandboxOutlined } from '@ant-design/icons';
+import { Tour, TourProps , Card, Badge, Avatar, Space, Row, Col, Statistic } from 'antd';
+import { QuestionCircleOutlined, SyncOutlined, LeftOutlined, RightOutlined,CloseOutlined, RobotOutlined, UserOutlined } from '@ant-design/icons';
 import { valueType, FormatConfig } from 'antd/lib/statistic/utils';
 
 function App() {
@@ -91,10 +91,6 @@ function App() {
     // Handle the case where value is not a number
     return value;
   };
-  
-
-
-
 
   const ref1 = useRef(null);
   const ref2 = useRef(null);
@@ -105,7 +101,7 @@ function App() {
   const steps: TourProps['steps'] = [
     {
       title: 'درخت',
-      description: 'اینجا تعداد درختی که در حین بازی پیدا کردید را میبینید.',
+      description: 'اینجا تعداد درختی که در حین بازی پیدا کردید را میبینید، در هربار برخورد زمین و آب شما یک درخت دریافت میکنید..',
       target: () => ref1.current,
       nextButtonProps: {
         children: 'بعدی', 
@@ -113,7 +109,7 @@ function App() {
     },
     {
       title: 'نور',
-      description: 'اینجا نورهایی که در حین بازی پیدا کردید را میبینید',
+      description: 'اینجا نورهایی که در حین بازی پیدا کردید را میبینید، در هربار برخورد باد و آتش شما یک درخت دریافت میکنید.',
       target: () => ref2.current,
       nextButtonProps: {
         children: 'بعدی', // Custom Next Button Text
@@ -124,7 +120,7 @@ function App() {
     },
     {
       title: 'عناصر',
-      description: 'این تعدا عناصر برای بازی در حال حاضر در اکانت شما موجود هستند',
+      description: 'این تعداد عناصر برای بازی در حال حاضر در اکانت شما موجود هستند',
       target: () => ref3.current,
       nextButtonProps: {
         children: 'تمام', // Custom Next Button Text
@@ -167,8 +163,8 @@ function App() {
           
           <IconButton edge="end" color="inherit" aria-label="chat" onClick={() => setOpen(true)}><QuestionCircleOutlined /></IconButton>
           <IconButton edge="end" color="inherit" aria-label="chat"><RobotOutlined /></IconButton>
-          <IconButton edge="end" color="inherit" aria-label="close" onClick={() => WebApp.close()}>
-            <CloseSquareOutlined />
+          <IconButton edge="end" color="error" aria-label="close" onClick={() => WebApp.close()}>
+          <CloseOutlined />
           </IconButton>
         </Toolbar>
       </AppBar>
@@ -182,20 +178,12 @@ function App() {
           ) : scoreData ? (
             <>       
             <Carousel NextIcon={<RightOutlined />} PrevIcon={<LeftOutlined />}>
-            {
-                items.map( (item, i) => <Item key={i} item={item} /> )
-            }
-        </Carousel> 
-            <br /><br />
-            <Row>
-              <Col>
-              <Steps direction="vertical" current={3} size="small" items={[{title: 'عنصر زمین',icon: <GlobalOutlined />},{title: ' در برخورد با آب',description:'یا برعکس',icon: <ShrinkOutlined />},{title: 'یک درخت می‌سازد',icon: <CodeSandboxOutlined />},]}/>
-              </Col>
-              <Col>
-              <Steps direction="vertical" current={3} size="small" items={[{title: 'عنصر آتش',icon: <FireOutlined />},{title: ' در برخورد با باد',description:'یا برعکس',icon: <ShrinkOutlined />},{title: 'یک نور می‌سازد',icon: <CodeSandboxOutlined />},]}/>
-              </Col>
-            </Row>
-              <Row gutter={2}>
+              {
+                  items.map( (item, i) => <Item key={i} item={item} /> )
+              }
+          </Carousel> 
+          <Space size={64}>
+                <Row>
                   <Col span={12}>
                     <Card bordered={false} ref={ref1}>
                       <Statistic
@@ -219,6 +207,7 @@ function App() {
                     </Card>
                   </Col>
                 </Row>
+            </Space>
                 <br /><br />
                 <Space size={64} ref={ref3}>
                 <Avatar.Group>
