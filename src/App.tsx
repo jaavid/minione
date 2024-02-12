@@ -1,18 +1,14 @@
 import { useState, useEffect } from 'react';
 import './App.css'
 import WebApp from '@twa-dev/sdk'
-import { AppBar, Toolbar, IconButton, Typography, Card, CardContent, Paper} from '@mui/material';
+import { AppBar, Toolbar, IconButton, Typography, CardContent, Paper} from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
-import CloseIcon from '@mui/icons-material/Close';
-import {Person} from '@mui/icons-material';
-import TelegramIcon from '@mui/icons-material/Telegram';
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { ScoreData } from './interface/ScoreData';
 import Carousel from 'react-material-ui-carousel';
-import { Steps } from 'antd';
-import { ShrinkOutlined, FireOutlined, GlobalOutlined ,CodeSandboxOutlined } from '@ant-design/icons';
-
+import CountUp from 'react-countup';
+import { Card, Badge, Steps, Avatar, Space, Row, Col, Statistic } from 'antd';
+import { SyncOutlined, LeftOutlined, RightOutlined,CloseSquareOutlined, RobotOutlined, UserOutlined, ShrinkOutlined, FireOutlined, GlobalOutlined ,CodeSandboxOutlined } from '@ant-design/icons';
+import { valueType, FormatConfig } from 'antd/lib/statistic/utils';
 
 function App() {
   const [isLoading, setIsLoading] = useState(false);
@@ -85,23 +81,48 @@ function App() {
     }
   };
 
-
-  // Rest of your component logic...
+  // const formatter = (value: number) => <CountUp end={value} separator="," />;
+  // @ts-ignore
+  const formatter = (value: valueType, config?: FormatConfig) => {
+    // Ensure the value is a number before using it in CountUp
+    if (typeof value === 'number') {
+      return <CountUp end={value} separator="," />;
+    }
+    // Handle the case where value is not a number
+    return value;
+  };
+  
 
   return (
     <>
     <AppBar position="fixed">
         <Toolbar>
-          <IconButton edge="start" color="inherit" aria-label="profile">
-            {/* <Avatar alt="Profile Picture" src="/path/to/your/image.jpg" /> */}
-            <Person></Person>
-          </IconButton>
+          
+                   
+              <Space>
+                <Avatar shape="square" icon={<UserOutlined />} />
+                {isLoading? (
+                <><SyncOutlined spin /></>
+                ): scoreData ? (
+                <>
+                <Statistic
+                  prefix='💰'
+                  valueStyle={{ color: '#ffffff' }}
+                  value={scoreData.score >  0 ? scoreData.score :  0}
+                  formatter={formatter}
+                />
+                </>
+                ) : null}
+              </Space>
+          
+          
+
           <Typography variant="h6" sx={{ flexGrow:  1 }}>
             نسخه بتا
           </Typography>
-          <IconButton edge="end" color="inherit" aria-label="chat"><TelegramIcon/></IconButton>
+          <IconButton edge="end" color="inherit" aria-label="chat"><RobotOutlined /></IconButton>
           <IconButton edge="end" color="inherit" aria-label="close" onClick={() => WebApp.close()}>
-            <CloseIcon />
+            <CloseSquareOutlined />
           </IconButton>
         </Toolbar>
       </AppBar>
@@ -114,76 +135,62 @@ function App() {
             <div className="progress-bar">  </div> // Simple progress bar
           ) : scoreData ? (
             <>       
-            <Carousel NextIcon={<ArrowBackIosNewIcon/>} PrevIcon={<ArrowForwardIosIcon/>}>
+            <Carousel NextIcon={<RightOutlined />} PrevIcon={<LeftOutlined />}>
             {
                 items.map( (item, i) => <Item key={i} item={item} /> )
             }
         </Carousel> 
-            <Grid container spacing={2}>
-              <Grid xs={12}><Card>
-                <CardContent>
-                  <Typography variant="h2">
-                    💰  {scoreData.score}
-                    </Typography>
-                    </CardContent>
-              </Card>
-              </Grid>
-              <Grid xs={6}><Card>
-                <CardContent>
-                <Steps direction="vertical" current={3} size="small" items={[{title: 'عنصر زمین',icon: <GlobalOutlined />},{title: ' در برخورد با آب',description:'یا برعکس',icon: <ShrinkOutlined />},{title: 'یک درخت می‌سازد',icon: <CodeSandboxOutlined />},]}/>
-                  <Typography variant="h3">
-                  🌳<br />
-                  {scoreData.tree}
-                  </Typography>              
-                </CardContent>
-              </Card>
-              </Grid>
-              <Grid xs={6}><Card>
-                <CardContent>
-                <Steps direction="vertical" current={3} size="small" items={[{title: 'عنصر آتش',icon: <FireOutlined />},{title: ' در برخورد با باد',description:'یا برعکس',icon: <ShrinkOutlined />},{title: 'یک نور می‌سازد',icon: <CodeSandboxOutlined />},]}/>
-                  <Typography variant="h3">
-                    ☀️<br />
-                    {scoreData.light}
-                  </Typography>
-                  </CardContent>
-              </Card>
-              </Grid>
-              <Grid xs={3}><Card raised={true}>
-              <CardContent style={{backgroundColor: "red", padding: "10px 0 0 0"}}>
-                  <Typography variant="h4">
-                    🌬️<br />
-                    {scoreData.wind}
-                    </Typography> </CardContent>
-              </Card>
-              </Grid>
-              <Grid xs={3}><Card raised={true}>
-                <CardContent style={{backgroundColor: "red", padding: "10px 0 0 0"}}>
-                  <Typography variant="h4">
-                    🔥<br />
-                  {scoreData.fire}
-                  </Typography>
-                  </CardContent>
-              </Card>
-              </Grid>
-              <Grid xs={3}><Card raised={true}>
-              <CardContent style={{backgroundColor: "red", padding: "10px 0 0 0"}}>
-                  <Typography variant="h4">
-                    🌍<br />
-                    {scoreData.earth}
-                  </Typography>
-                </CardContent>
-              </Card>
-              </Grid>
-              <Grid xs={3}><Card raised={true}>
-              <CardContent style={{backgroundColor: "red", padding: "10px 0 0 0"}}>
-                  <Typography variant="h4">
-                    💧<br />
-                    {scoreData.water}
-                  </Typography>
-                </CardContent>
-              </Card>
-              </Grid>
-            </Grid>
+            <br /><br />
+            <Row>
+              <Col>
+              <Steps direction="vertical" current={3} size="small" items={[{title: 'عنصر زمین',icon: <GlobalOutlined />},{title: ' در برخورد با آب',description:'یا برعکس',icon: <ShrinkOutlined />},{title: 'یک درخت می‌سازد',icon: <CodeSandboxOutlined />},]}/>
+              </Col>
+              <Col>
+              <Steps direction="vertical" current={3} size="small" items={[{title: 'عنصر آتش',icon: <FireOutlined />},{title: ' در برخورد با باد',description:'یا برعکس',icon: <ShrinkOutlined />},{title: 'یک نور می‌سازد',icon: <CodeSandboxOutlined />},]}/>
+              </Col>
+            </Row>
+              <Row gutter={2}>
+                  <Col span={12}>
+                    <Card bordered={false}>
+                      <Statistic
+                        title="درختان"
+                        value={scoreData.tree}
+                        precision={0}
+                        valueStyle={{ color: '#3f8600' }}
+                        suffix="🌳"
+                      />
+                    </Card>
+                  </Col>
+                  <Col span={12}>
+                    <Card bordered={false}>
+                      <Statistic
+                        title="نورها"
+                        value={scoreData.light}
+                        precision={0}
+                        valueStyle={{ color: '#fcda56' }}
+                        suffix="☀️"
+                      />
+                    </Card>
+                  </Col>
+                </Row>
+                <br /><br />
+                <Space size={64}>
+                <Avatar.Group>
+                  <Badge count={scoreData.wind > 0 ?  scoreData.wind : '۰'} overflowCount={50}>
+                    <Avatar size={64}>🌬️</Avatar>
+                  </Badge>
+                  <Badge count={scoreData.water > 0 ?  scoreData.water : '۰'} overflowCount={50}>
+                    <Avatar size={64}>💧</Avatar>
+                  </Badge>
+                  <Badge count={scoreData.fire > 0 ?  scoreData.fire : '۰'} overflowCount={50}>
+                    <Avatar size={64}>🔥</Avatar>
+                  </Badge>
+                  <Badge count={scoreData.earth > 0 ?  scoreData.earth : '۰'} overflowCount={50}>
+                    <Avatar size={64}>🌍</Avatar>
+                  </Badge>
+                  </Avatar.Group>
+                </Space>
+
             </>
           ) : null}
       </div>
@@ -212,7 +219,7 @@ function Item(props: ItemProps)
   const { icon, description, name, win, lose, equal,extrawin, extraelement } = props.item;
 
     return (
-      <Card variant="outlined">
+      <Card>
       <CardContent >
           <Grid container spacing={2}>
               <Grid xs={6}>
