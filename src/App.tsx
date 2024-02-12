@@ -7,7 +7,7 @@ import { ScoreData } from './interface/ScoreData';
 import Carousel from 'react-material-ui-carousel';
 import CountUp from 'react-countup';
 import { Tour, TourProps , Card, Badge, Avatar, Space, Row, Col, Statistic } from 'antd';
-import { QuestionCircleOutlined, SyncOutlined, LeftOutlined, RightOutlined,CloseOutlined, RobotOutlined, UserOutlined } from '@ant-design/icons';
+import { QuestionCircleOutlined, SyncOutlined, LeftOutlined, RightOutlined,CloseOutlined, UserOutlined } from '@ant-design/icons';
 import { valueType, FormatConfig } from 'antd/lib/statistic/utils';
 
 function App() {
@@ -161,8 +161,7 @@ function App() {
             نسخه بتا
           </Typography>
           
-          <IconButton edge="end" color="inherit" aria-label="chat" onClick={() => setOpen(true)}><QuestionCircleOutlined /></IconButton>
-          <IconButton edge="end" color="inherit" aria-label="chat"><RobotOutlined /></IconButton>
+          <IconButton edge="end" color="inherit" aria-label="chat" onClick={() => setOpen(true)}><QuestionCircleOutlined /></IconButton>          
           <IconButton edge="end" color="error" aria-label="close" onClick={() => WebApp.close()}>
           <CloseOutlined />
           </IconButton>
