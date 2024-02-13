@@ -33,7 +33,7 @@ interface TableParams {
 const columns: ColumnsType<DataType> = [
   {
     title: "رتبه",
-    dataIndex: "rank",
+    dataIndex: "nat",
     sorter: true,
   },
   {
@@ -55,7 +55,7 @@ const columns: ColumnsType<DataType> = [
   },
   {
     title: "درخت",
-    dataIndex: "tree",
+    dataIndex: "phone",
     sorter: true,
   },
   {

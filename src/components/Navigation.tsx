@@ -1,11 +1,10 @@
 // src/components/Navigation.tsx
-import { IconButton, Toolbar } from "@mui/material";
+import { Toolbar } from "@mui/material";
 import AppBar from "@mui/material/AppBar";
-import { Typography, Statistic, Avatar, Space } from "antd";
+import { Statistic, Avatar, Space } from "antd";
 import {
   HomeOutlined,
   OrderedListOutlined,
-  CloseOutlined,
   QuestionCircleOutlined,
   UserOutlined,
   SyncOutlined,
@@ -15,13 +14,11 @@ import { Link } from "react-router-dom";
 import { ScoreData } from "../interface/ScoreData";
 import WebApp from "@twa-dev/sdk";
 import CountUp from "react-countup";
-
-const { Title } = Typography;
+const userdata = WebApp.initDataUnsafe;
 
 export const Navigation: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [scoreData, setScoreData] = useState<ScoreData | null>(null);
-  const userdata = WebApp.initDataUnsafe;
   useEffect(() => {
     if (userdata?.user?.id) {
       fetchScoreData(userdata.user.id);
@@ -57,15 +54,17 @@ export const Navigation: React.FC = () => {
   const displayscores = isLoading ? (
     <SyncOutlined spin />
   ) : scoreData ? (
+    <>
+    <Avatar shape="circle">💰</Avatar>
     <Statistic
-      prefix="💰"
       valueStyle={{ color: "#ffffff" }}
       value={scoreData.score > 0 ? scoreData.score : 0}
       formatter={formatter}
     />
+    </>
   ) : null;
   return (
-    <AppBar position="fixed">
+    <AppBar position="sticky">
       <Toolbar>
         <Space>
           <Link to="/">
@@ -77,25 +76,11 @@ export const Navigation: React.FC = () => {
           <Link to="/profile">
             <Avatar shape="square" icon={<UserOutlined />} />
           </Link>
+          <Link to="/profile">
+            <Avatar shape="square" icon={<QuestionCircleOutlined />} />
+          </Link>
           {displayscores}
         </Space>
-        <Title
-          level={5}
-          style={{ textAlign: "center", color: "white", flexGrow: "1" }}
-        >
-          نسخه آزمایشی
-        </Title>
-        <IconButton edge="end" color="inherit">
-          <QuestionCircleOutlined />
-        </IconButton>
-        <IconButton
-          edge="end"
-          color="error"
-          aria-label="close"
-          onClick={() => WebApp.close()}
-        >
-          <CloseOutlined />
-        </IconButton>
       </Toolbar>
     </AppBar>
   );

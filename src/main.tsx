@@ -3,7 +3,6 @@
  */
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { clarity } from "react-microsoft-clarity";
 import "./index.css";
 import WebApp from "@twa-dev/sdk";
@@ -43,15 +42,6 @@ BackButton.onClick(() => window.history.back());
 const SettingsButton = WebApp.SettingsButton;
 SettingsButton.isVisible = true;
 
-/**
- * Create theme for Material UI
- */
-const theme = createTheme({
-  typography: {
-    fontFamily: "VazirMatn, serif",
-  },
-});
-
 WebApp.ready();
 clarity.init("kzhxxy2ip7");
 
@@ -59,9 +49,7 @@ clarity.init("kzhxxy2ip7");
  * Render the application
  */
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  <ThemeProvider theme={theme}>
     <React.StrictMode>
       <App />
     </React.StrictMode>
-  </ThemeProvider>,
 );

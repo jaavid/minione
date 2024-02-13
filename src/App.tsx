@@ -9,6 +9,8 @@ import Fire from "./pages/elements/Fire";
 import Earth from "./pages/elements/Earth";
 import ProfilePage from "./pages/ProfilePage";
 
+
+
 function App() {
   return (
     <Router>
