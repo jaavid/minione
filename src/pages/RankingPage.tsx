@@ -1,12 +1,15 @@
 // src/pages/RankingPage.tsx
 import Navigation from "../components/Navigation";
-import React, { useEffect, useState } from 'react';
-import { Table } from 'antd';
-import type { GetProp, TableProps } from 'antd';
-import qs from 'qs';
+import React, { useEffect, useState } from "react";
+import { Table } from "antd";
+import type { GetProp, TableProps } from "antd";
+import qs from "qs";
 
-type ColumnsType<T> = TableProps<T>['columns'];
-type TablePaginationConfig = Exclude<GetProp<TableProps, 'pagination'>, boolean>;
+type ColumnsType<T> = TableProps<T>["columns"];
+type TablePaginationConfig = Exclude<
+  GetProp<TableProps, "pagination">,
+  boolean
+>;
 
 interface DataType {
   name: {
@@ -24,40 +27,40 @@ interface TableParams {
   pagination?: TablePaginationConfig;
   sortField?: string;
   sortOrder?: string;
-  filters?: Parameters<GetProp<TableProps, 'onChange'>>[1];
+  filters?: Parameters<GetProp<TableProps, "onChange">>[1];
 }
 
 const columns: ColumnsType<DataType> = [
   {
-    title: 'رتبه',
-    dataIndex: 'rank',
+    title: "رتبه",
+    dataIndex: "rank",
     sorter: true,
   },
   {
-    title: 'نام',
-    dataIndex: 'name',
+    title: "نام",
+    dataIndex: "name",
     sorter: true,
     render: (name) => `${name.first} ${name.last}`,
-    width: '20%',
+    width: "20%",
   },
   {
-    title: 'امتیاز',
-    dataIndex: 'gender',
+    title: "امتیاز",
+    dataIndex: "gender",
     filters: [
-      { text: 'Male', value: 'male' },
-      { text: 'Female', value: 'female' },
+      { text: "Male", value: "male" },
+      { text: "Female", value: "female" },
     ],
-    width: '20%',
+    width: "20%",
     sorter: true,
   },
   {
-    title: 'درخت',
-    dataIndex: 'tree',
+    title: "درخت",
+    dataIndex: "tree",
     sorter: true,
   },
   {
-    title: 'نور',
-    dataIndex: 'light',
+    title: "نور",
+    dataIndex: "light",
     sorter: true,
   },
 ];
@@ -80,7 +83,9 @@ const RankingPage: React.FC = () => {
 
   const fetchData = () => {
     setLoading(true);
-    fetch(`https://randomuser.me/api?${qs.stringify(getRandomuserParams(tableParams))}`)
+    fetch(
+      `https://randomuser.me/api?${qs.stringify(getRandomuserParams(tableParams))}`,
+    )
       .then((res) => res.json())
       .then(({ results }) => {
         setData(results);
@@ -101,7 +106,11 @@ const RankingPage: React.FC = () => {
     fetchData();
   }, [JSON.stringify(tableParams)]);
 
-  const handleTableChange: TableProps['onChange'] = (pagination, filters, sorter) => {
+  const handleTableChange: TableProps["onChange"] = (
+    pagination,
+    filters,
+    sorter,
+  ) => {
     setTableParams({
       pagination,
       filters,
@@ -116,15 +125,15 @@ const RankingPage: React.FC = () => {
 
   return (
     <>
-    <Navigation />
-    <Table
-      columns={columns}
-      rowKey={(record) => record.login.uuid}
-      dataSource={data}
-      pagination={tableParams.pagination}
-      loading={loading}
-      onChange={handleTableChange}
-    />
+      <Navigation />
+      <Table
+        columns={columns}
+        rowKey={(record) => record.login.uuid}
+        dataSource={data}
+        pagination={tableParams.pagination}
+        loading={loading}
+        onChange={handleTableChange}
+      />
     </>
   );
 };

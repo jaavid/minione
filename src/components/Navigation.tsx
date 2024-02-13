@@ -54,7 +54,7 @@ export const Navigation: React.FC = () => {
     // Handle the case where value is not a number
     return value;
   };
- const displayscores = isLoading ? (
+  const displayscores = isLoading ? (
     <SyncOutlined spin />
   ) : scoreData ? (
     <Statistic
@@ -85,12 +85,9 @@ export const Navigation: React.FC = () => {
         >
           نسخه آزمایشی
         </Title>
-        <IconButton
-            edge="end"
-            color="inherit"
-          >
-            <QuestionCircleOutlined />
-          </IconButton>
+        <IconButton edge="end" color="inherit">
+          <QuestionCircleOutlined />
+        </IconButton>
         <IconButton
           edge="end"
           color="error"
