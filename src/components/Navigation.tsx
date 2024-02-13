@@ -4,6 +4,7 @@ import AppBar from "@mui/material/AppBar";
 import { Typography, Statistic, Avatar, Space } from "antd";
 import {
   HomeOutlined,
+  OrderedListOutlined,
   CloseOutlined,
   QuestionCircleOutlined,
   UserOutlined,
@@ -69,6 +70,9 @@ export const Navigation: React.FC = () => {
         <Space>
           <Link to="/">
             <Avatar shape="square" icon={<HomeOutlined />} />
+          </Link>
+          <Link to="/ranking">
+            <Avatar shape="square" icon={<OrderedListOutlined />} />
           </Link>
           <Link to="/profile">
             <Avatar shape="square" icon={<UserOutlined />} />

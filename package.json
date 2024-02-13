@@ -22,6 +22,7 @@
     "i": "^0.3.7",
     "inline-style-prefixer": "^7.0.0",
     "npm": "^10.4.0",
+    "qs": "^6.11.2",
     "react": "^18.2.0",
     "react-countup": "^6.5.0",
     "react-dom": "^18.2.0",
@@ -31,6 +32,7 @@
     "stylis-plugin-rtl": "^2.1.1"
   },
   "devDependencies": {
+    "@types/qs": "^6.9.11",
     "@types/react": "^18.2.55",
     "@types/react-dom": "^18.2.19",
     "@typescript-eslint/eslint-plugin": "^6.21.0",
