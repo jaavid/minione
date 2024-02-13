@@ -5,9 +5,9 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { clarity } from "react-microsoft-clarity";
-import App from "./App.tsx";
 import "./index.css";
 import WebApp from "@twa-dev/sdk";
+import App from "./App.tsx";
 
 /**
  * Initialize WebApp
