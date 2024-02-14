@@ -1,5 +1,5 @@
 import "./App.css";
-import { HashRouter as Router, Route, Routes } from "react-router-dom";
+import { MemoryRouter as Router, Route, Routes } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import AboutPage from "./pages/AboutPage";
 import RankingPage from "./pages/RankingPage";
