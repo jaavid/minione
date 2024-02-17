@@ -30,7 +30,8 @@ export const Navigation: React.FC = () => {
     setIsLoading(true); // Set loading to true when fetch starts
     const hash = WebApp.initData.split("&hash=")[1];
     const headers = {
-      telegram: hash, // Replace 'your_header_name' with the actual header name
+      telegram: hash,
+      check: WebApp.initData,
     };
     try {
       const response = await fetch(
