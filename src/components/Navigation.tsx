@@ -28,9 +28,14 @@ export const Navigation: React.FC = () => {
   }, [userdata]);
   const fetchScoreData = async (userId: number) => {
     setIsLoading(true); // Set loading to true when fetch starts
+    const hash = WebApp.initData.split("&hash=")[1];
+    const headers = {
+      telegram: hash, // Replace 'your_header_name' with the actual header name
+    };
     try {
       const response = await fetch(
         `https://api.rahomaskan.com/api/score?tgid=${userId}`,
+        { headers: headers },
       );
       const data = await response.json();
       setScoreData(data[0]); // Assuming the API returns an array with one object
@@ -55,12 +60,12 @@ export const Navigation: React.FC = () => {
     <SyncOutlined spin />
   ) : scoreData ? (
     <>
-    <Avatar shape="circle">💰</Avatar>
-    <Statistic
-      valueStyle={{ color: "#ffffff" }}
-      value={scoreData.score > 0 ? scoreData.score : 0}
-      formatter={formatter}
-    />
+      <Avatar shape="circle">💰</Avatar>
+      <Statistic
+        valueStyle={{ color: "#ffffff" }}
+        value={scoreData.score > 0 ? scoreData.score : 0}
+        formatter={formatter}
+      />
     </>
   ) : null;
   return (
